@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#ffffff" />
+  <meta name="description" content="A light-blue bunny scrapbook that plays chords with your hands." />
+  <title>miffy synth</title>
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/src/style.css" />
+</head>
+<body>
+  <div class="page">
+    <header class="top">
+      <div class="brand">
+        <img class="brand-bunny" src="/bunny.svg" alt="" />
+        <div>
+          <p class="eyebrow">little hand piano</p>
+          <h1>miffy synth</h1>
+        </div>
+      </div>
+      <div class="controls">
+        <label class="picker">
+          <span>key</span>
+          <select id="keySelect" aria-label="key">
+            <option value="A" selected>A</option>
+            <option value="Bb">A♯ / B♭</option>
+            <option value="B">B</option>
+            <option value="C">C</option>
+            <option value="Db">C♯ / D♭</option>
+            <option value="D">D</option>
+            <option value="Eb">D♯ / E♭</option>
+            <option value="E">E</option>
+            <option value="F">F</option>
+            <option value="Gb">F♯ / G♭</option>
+            <option value="G">G</option>
+            <option value="Ab">G♯ / A♭</option>
+          </select>
+        </label>
+        <label class="picker">
+          <span>tone</span>
+          <select id="toneSelect" aria-label="tone">
+            <option value="triangle" selected>warm</option>
+            <option value="sawtooth">bright</option>
+            <option value="square">retro</option>
+          </select>
+        </label>
+      </div>
+    </header>
+
+    <main class="stage">
+      <article class="polaroid">
+        <span class="tape tape-left" aria-hidden="true"></span>
+        <span class="tape tape-right" aria-hidden="true"></span>
+        <div class="screen" id="screen">
+          <video id="webcam" class="webcam" autoplay playsinline muted></video>
+          <canvas id="overlay"></canvas>
+          <button id="startButton" class="start-layer" type="button">
+            <img class="start-bunny" src="/bunny.svg" alt="" />
+            <span class="start-title" id="startTitle">tap to play</span>
+            <span class="start-sub" id="startSub">your hands make the chords</span>
+          </button>
+          <p id="hint" class="hint" hidden>wave both hands hello</p>
+          <div id="chordPill" class="chord-pill" hidden aria-live="polite">
+            <span id="chordName" class="chord-name">···</span>
+            <span id="chordRoman" class="chord-roman"></span>
+          </div>
+          <aside class="meter" id="volumeMeterWrap" role="meter" aria-label="volume" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+            <span class="meter-label">loud</span>
+            <div id="volumeMeter">
+              <div class="vol-bar" data-index="7"></div>
+              <div class="vol-bar" data-index="6"></div>
+              <div class="vol-bar" data-index="5"></div>
+              <div class="vol-bar" data-index="4"></div>
+              <div class="vol-bar" data-index="3"></div>
+              <div class="vol-bar" data-index="2"></div>
+              <div class="vol-bar" data-index="1"></div>
+              <div class="vol-bar" data-index="0"></div>
+            </div>
+            <span class="meter-label">soft</span>
+          </aside>
+        </div>
+        <p class="caption">
+          <span id="qualityDisplay">tap the picture</span>
+          <span id="filterDisplay" class="filter-readout">filter 0%</span>
+        </p>
+      </article>
+    </main>
+
+    <footer class="bottom">
+      <div class="guide-anchor">
+        <div id="gestureGuide" class="guide" hidden></div>
+        <button id="guideToggle" class="pill" type="button" aria-expanded="false" aria-controls="gestureGuide">finger chart</button>
+      </div>
+      <p class="credit">adapted from <a href="https://github.com/ericwei97-cloud/gesture-synth">gesture synth</a></p>
+      <button id="helpButton" class="pill" type="button">how to play</button>
+    </footer>
+  </div>
+
+  <div id="helpModal" class="modal" hidden>
+    <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="helpTitle">
+      <button id="closeHelp" class="close" type="button" aria-label="close">×</button>
+      <div class="modal-scroll">
+      <h2 id="helpTitle">how to play</h2>
+      <p class="lede">Hold both hands up to the mirror. The left hand picks the chord. The right hand decides how it sounds.</p>
+      <div class="help-grid">
+        <section>
+          <h3>left hand · the chord</h3>
+          <ul class="steps">
+            <li><b>tilt in</b><span>major</span></li>
+            <li><b>tilt out</b><span>minor</span></li>
+            <li><b>1 to 5 fingers</b><span>degrees I–V</span></li>
+            <li><b>index + pinky</b><span>VI</span></li>
+            <li><b>those + thumb</b><span>VII</span></li>
+          </ul>
+        </section>
+        <section>
+          <h3>right hand · the color</h3>
+          <ul class="steps">
+            <li><b>1 finger</b><span>root</span></li>
+            <li><b>2 fingers</b><span>1st inversion</span></li>
+            <li><b>3 fingers</b><span>7th</span></li>
+            <li><b>4 fingers</b><span>dominant or dim</span></li>
+            <li><b>thumb out</b><span>lower octave</span></li>
+            <li><b>tilt in</b><span>darker filter</span></li>
+            <li><b>tilt out</b><span>brighter filter</span></li>
+            <li><b>hand up</b><span>louder</span></li>
+            <li><b>hand down</b><span>softer</span></li>
+          </ul>
+        </section>
+      </div>
+      <h3>tones</h3>
+      <ul class="steps">
+        <li><b>warm</b><span>soft triangle</span></li>
+        <li><b>bright</b><span>buzzy saw</span></li>
+        <li><b>retro</b><span>square wave</span></li>
+      </ul>
+      <p class="fine-print">
+        The picture is a mirror. Chords, tones, and the hand model follow
+        <a href="https://github.com/ericwei97-cloud/gesture-synth">Gesture Synth by Eric Wei</a>.
+        A short lesson lives on
+        <a href="https://www.instagram.com/p/DbH1BACxNCG/" target="_blank" rel="noopener noreferrer">Instagram</a>.
+      </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="stickers" aria-hidden="true">
+    <img class="sticker spiral-a" src="/spiral.svg" alt="" />
+    <img class="sticker cheeks" src="/bunny-cheeks.svg" alt="" />
+    <img class="sticker spiral-b" src="/spiral-soft.svg" alt="" />
+    <img class="sticker cat" src="/cat.svg" alt="" />
+    <img class="sticker stamp" src="/stamp.svg" alt="" />
+    <img class="sticker fish" src="/fish.svg" alt="" />
+    <img class="sticker star" src="/star.svg" alt="" />
+    <img class="sticker bunny" src="/bunny.svg" alt="" />
+  </div>
+
+  <div id="miffyCursor" class="miffy-cursor" aria-hidden="true">
+    <img src="/bunny.svg" alt="" />
+  </div>
+
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-18 -18 266 436">
+  <defs>
+    <filter id="halo" x="-20%" y="-12%" width="140%" height="124%" color-interpolation-filters="sRGB">
+      <feMorphology in="SourceAlpha" operator="dilate" radius="5" result="expanded"/>
+      <feFlood flood-color="#ffffff" result="white"/>
+      <feComposite in="white" in2="expanded" operator="in" result="outline"/>
+      <feMerge>
+        <feMergeNode in="outline"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  <g filter="url(#halo)">
+    <rect x="40" y="2" width="62" height="168" rx="31" fill="#ffffff" stroke="#161616" stroke-width="8"/>
+    <rect x="128" y="2" width="62" height="168" rx="31" fill="#ffffff" stroke="#161616" stroke-width="8"/>
+    <rect x="36" y="262" width="158" height="108" rx="28" fill="#01559a" stroke="#161616" stroke-width="8"/>
+    <ellipse cx="24" cy="314" rx="18" ry="14" fill="#ffffff" stroke="#161616" stroke-width="8"/>
+    <ellipse cx="206" cy="314" rx="18" ry="14" fill="#ffffff" stroke="#161616" stroke-width="8"/>
+    <ellipse cx="90" cy="384" rx="26" ry="15" fill="#ffffff" stroke="#161616" stroke-width="8"/>
+    <ellipse cx="140" cy="384" rx="26" ry="15" fill="#ffffff" stroke="#161616" stroke-width="8"/>
+    <circle cx="115" cy="188" r="100" fill="#ffffff" stroke="#161616" stroke-width="8"/>
+    <path d="M102 210 L122 228" fill="none" stroke="#161616" stroke-width="7" stroke-linecap="round"/>
+    <path d="M122 210 L102 228" fill="none" stroke="#161616" stroke-width="7" stroke-linecap="round"/>
+  </g>
+</svg>

@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 220 190">
+  <defs>
+    <filter id="halo" x="-16%" y="-14%" width="132%" height="128%" color-interpolation-filters="sRGB">
+      <feMorphology in="SourceAlpha" operator="dilate" radius="4" result="expanded"/>
+      <feFlood flood-color="#ffffff" result="white"/>
+      <feComposite in="white" in2="expanded" operator="in" result="outline"/>
+      <feMerge>
+        <feMergeNode in="outline"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  <g filter="url(#halo)">
+    <path fill="#7890d2" d="M58 78 L36 18 L86 62 Z"/>
+    <path fill="#7890d2" d="M142 78 L164 18 L114 62 Z"/>
+    <ellipse cx="100" cy="108" rx="74" ry="62" fill="#7890d2"/>
+    <ellipse cx="74" cy="108" rx="16" ry="20" fill="#ffffff"/>
+    <ellipse cx="128" cy="108" rx="16" ry="20" fill="#ffffff"/>
+    <ellipse cx="76" cy="112" rx="6" ry="8" fill="#082870"/>
+    <ellipse cx="126" cy="112" rx="6" ry="8" fill="#082870"/>
+  </g>
+</svg>
