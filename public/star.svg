@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-6 -6 112 112">
+  <defs>
+    <filter id="halo" x="-20%" y="-20%" width="140%" height="140%" color-interpolation-filters="sRGB">
+      <feMorphology in="SourceAlpha" operator="dilate" radius="3" result="expanded"/>
+      <feFlood flood-color="#ffffff" result="white"/>
+      <feComposite in="white" in2="expanded" operator="in" result="outline"/>
+      <feMerge>
+        <feMergeNode in="outline"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  <polygon filter="url(#halo)" fill="#7ea0dc" stroke="#161616" stroke-width="4" stroke-linejoin="round" points="50,4 62,36 96,36 68,58 78,94 50,74 22,94 32,58 4,36 38,36"/>
+</svg>
